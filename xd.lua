@@ -1,5 +1,5 @@
 
-
+repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil
 --LIBRARY START
 --Services
 getgenv().runService = game:GetService"RunService"
@@ -163,33 +163,6 @@ function library:GetConfigs()
     end
     return files
 end
-
-function SetValue(object, property, value, duration, easingStyle, easingDirection)
-    local TweenService = game:GetService("TweenService")
-
-    -- Check if object is in the Workspace
-    local originalParent = object.Parent
-    if not object:IsDescendantOf(workspace) then
-        object.Parent = workspace
-    end
-
-    -- Tween setup
-    local tweenInfo = TweenInfo.new(
-        duration or 1, -- Default duration to 1 if not provided
-        easingStyle or Enum.EasingStyle.Linear,
-        easingDirection or Enum.EasingDirection.Out
-    )
-    local tween = TweenService:Create(object, tweenInfo, {[property] = value})
-    tween:Play()
-    
-    -- Return object to original parent after tween
-    tween.Completed:Connect(function()
-        if originalParent then
-            object.Parent = originalParent
-        end
-    end)
-end
-
 
 library.createLabel = function(option, parent)
     option.main = library:Create("TextLabel", {
